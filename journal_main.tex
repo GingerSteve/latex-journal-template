@@ -1,0 +1,76 @@
+\documentclass[11pt]{memoir}
+\setstocksize{9in}{6in}
+\settrimmedsize{\stockheight}{\stockwidth}{*}
+\setulmarginsandblock{36pt}{18pt}{*} % Upper/lower margins
+\setlrmarginsandblock{36pt}{36pt}{*} % Spine/edge margins
+\setheadfoot{14pt}{12pt} % Header/footer height
+\setheaderspaces{*}{8pt}{*} % Extra header space
+\checkandfixthelayout
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[en-GB,showdow]{datetime2}
+\usepackage{wrapfig}
+\usepackage{indentfirst}
+\usepackage[british]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{needspace}
+
+\graphicspath{ {./img/} }
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+% Date format for day headers
+\DTMnewdatestyle{mydateformat}{
+  \renewcommand{\DTMdisplaydate}[4]{\DTMweekdayname{##4}, \DTMmonthname{##2}\nobreakspace\DTMordinal{##3}}
+  \renewcommand{\DTMDisplaydate}{\DTMdisplaydate}
+}
+\DTMlangsetup{ord=raise,showyear=false} 
+\DTMsetdatestyle{mydateformat}
+
+% Page header & footer layout
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RE,RO]{\thepage}
+\fancyhead[CE]{\textit{\leftmark}}
+\fancyhead[CO]{\textit{\rightmark}}
+\renewcommand\headrulewidth{0pt}
+
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[RE,RO]{\thepage}
+}
+
+% Remove double spacing between list items and around lists
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+
+% Set up block quote styling
+\newmdenv[topline=false,rightline=false,bottomline=false,usetwoside=false,leftmargin=0.75em]{myblockquote}
+
+%--- Set up custom commands
+% \newyear -> Adds a chapter for the new year, sets up page headers
+\newcommand{\newyear}[1]{\chapter*{#1}\markboth{#1}{#1}\addcontentsline{toc}{chapter}{#1}}
+% \newday -> Adds a subsubsection for the day, formats the date, and adds right-aligned overview text if provided
+\newcommand{\newday}[2]{\subsubsection*{\DTMdate{#1}{\hfill\normalsize\normalfont #2}}}
+% \addcontents -> Adds the text to the table of contents
+\newcommand{\addcontents}[1]{\addcontentsline{toc}{section}{#1}}
+% \retro -> Adds a subsubsection for a retrospective, and adds it to the TOC
+\newcommand{\retro}[1]{\subsubsection*{#1}\addcontents{#1}}
+% \degrees -> Degrees symbol
+\newcommand{\degrees}{$^\circ$}
+
+\begin{document}
+\tableofcontents*
+\input journal_2020.tex
+\end{document}
