@@ -1,5 +1,5 @@
 # LaTeX Journal Template
-This is my template for a journal using LaTeX, I use this repo for quick reference.
+Custom commands and formatting for a journal using LaTeX, based on the `memoir` class. [Example output.](journal_main.pdf)
 
 ## Custom Commands
 - `\newyear{<year>}` – Start a new year
